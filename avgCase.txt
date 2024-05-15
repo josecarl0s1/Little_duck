@@ -1,0 +1,26 @@
+program ducky;
+
+
+var a, bucky, c: int;
+
+
+void ducky_func(n:int,m:float)[{
+	y = a != b;
+}];
+
+
+main {
+	if(b > 9){
+		if(b != a){
+			print(e);
+		};
+	}else{
+		z = y;
+	};
+	duck_funk(a, m);
+	print("perro", a);
+	
+}
+
+
+end

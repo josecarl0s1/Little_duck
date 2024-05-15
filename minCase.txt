@@ -1,0 +1,7 @@
+program ducky;
+
+main {
+		
+}
+
+end
