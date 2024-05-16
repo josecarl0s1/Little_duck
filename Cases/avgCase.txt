@@ -10,7 +10,7 @@ void ducky_func(n:int,m:float)[{
 
 
 main {
-	if(b > 9){
+	if(b + a > c *d){
 		if(b != a){
 			print(e);
 		};

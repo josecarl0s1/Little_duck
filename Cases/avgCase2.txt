@@ -1,0 +1,15 @@
+program ducky;
+
+
+main {
+	if(b + a > c *d){
+		a = b;
+	}else{
+		z = y;
+	};
+	
+	
+}
+
+
+end
