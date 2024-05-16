@@ -9,9 +9,6 @@ def main(argv):
     stream = CommonTokenStream(lexer)
     parser = little_duckParser(stream)
     tree = parser.programa()
-    # listener = ListenerInterp()
-    # walker = ParseTreeWalker()
-    # walker.walk(listener, tree)
 
 if __name__ == '__main__':
     main(sys.argv)
