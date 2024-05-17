@@ -12,5 +12,3 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv)
-
-#python3 Driver.py [fileToEvaluate]
