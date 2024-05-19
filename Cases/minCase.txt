@@ -1,5 +1,7 @@
 program ducky;
 
+var a, bucky, c: int;x, yucky, zoom_1: float;
+
 main {
 		
 }
