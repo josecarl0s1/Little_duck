@@ -1,10 +1,13 @@
 program test_3;
 
-var a, b, c : int;
+var a, b, c, d : int;
 
 
 main {
-    a = a * b + c > c + b * a;
+    if(a+b>d){
+        c = b + c;
+    };
+    a = b + c;
 }
 
 end

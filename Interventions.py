@@ -79,14 +79,11 @@ class Interventions:
     POper = [] #pending operators
     PilaO = [] #pending operands
     #QUEUE
-    Quad = [] #l_operand, r_operand, operator, result, jumptoIndex
+    Quad = [] #l_operand, r_operand, operator, resultIndex NOTE: results are saved in the variables dictionary with the 'temp' key
     #semantic cube
     '''
-         0 1 2 3
-       0 int string float bool
-       1
-       2
-       3 
+        0   1      2     3
+        int string float bool        
     '''
     sCube = {
         '+' : [['int', 'string', 'float', None],['string', 'string', 'string', 'string'], ['float', 'string', 'float', None], [None, 'string', None, 'bool']],
@@ -95,7 +92,8 @@ class Interventions:
         '/': [['int', None, 'float', None],[None, None, None, None],['float', None, 'float', None],[None, None, None, 'bool']],
         '<': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
         '>': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
-        '!=': [['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool']]
+        '!=': [['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool']],
+        '=': [['int', 'string', 'float', None],['string', 'string', 'string', None], ['float', 'string', 'float', None], [None, 'string', None, 'bool']]
     }
 
     translationDict = {
@@ -108,6 +106,9 @@ class Interventions:
     tempVars = 0
 
     def addTempVar(self, var):
+        if 'temp' not in self.variables: 
+            self.variables['temp'] = []
+            self.variables['temp'].append(var)
         self.variables['temp'].append(var)
 
     def getTempVar(self, id, type):
@@ -126,11 +127,11 @@ class Interventions:
         self.POper.append(operator)
 
     def keyPoint_CreateQuad(self, switch): #takes in line to indicate where an error is found NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9
-        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!=']] #NOTE: we need a case for !=
+        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=']] #NOTE: we need a case for !=
         if not self.POper:
             return 
         if self.POper[-1] in opEval[switch]:
-            #l_operand, r_operand, operator, result, jumptoIndex
+            #operator, l_operand, r_operand, result
             r_operand = self.PilaO.pop()
             l_operand = self.PilaO.pop()
             operator = self.POper.pop()
@@ -139,8 +140,9 @@ class Interventions:
                 #result <- AVAIL.next()
                 quadLine = [operator, l_operand, r_operand, self.tempVars] #tempVars is an address
                 self.Quad.append(quadLine)
-                self.PilaO.append(self.getTempVar(self.tempVars, result_Type))
-                #self.addTempVar(self.getTempVar(result_Type)) NOTE: IMPLEMENT ID NECESSARY
+                tempVar = self.getTempVar(self.tempVars, result_Type)
+                self.PilaO.append(tempVar)
+                self.addTempVar(tempVar) 
                 self.tempVars += 1
                 #NOTE: if we weare to clear the temporary variables here is where we would do it
             else:
@@ -151,11 +153,39 @@ class Interventions:
 
     def keyPoint_PopFalse(self):
         self.POper.pop()
+
+    #Non-Linear Quad
+
+    PJumps = []
+    
+    
+    def if_createGoToF(self):
+       #print(self.Quad)
+       #print(self.PilaO)
+       if self.PilaO[-1][1] != 'bool':
+        raise Exception(f'if statement must be evaluated against a bool type')
+       else:
+        result = self.PilaO.pop()
+        #l_operand, r_operand, operator, result
+        quad = ['GotoF', result, None, None]
+        self.Quad.append(quad)
+        self.PJumps.append(len(self.Quad) - 1)
+
+    def if_Fill(self):
+        indexQuadIf = self.PJumps.pop()
+        self.Quad[indexQuadIf][3] = len(self.Quad)
+
+    def else_Fill(self):
+        quad = ['Goto', None, None, None]
+        self.Quad.append(quad)
+        indexQuadElse = self.Pjumps.pop()
+        self.Quad[indexQuadElse][3] = len(self.Quad)
+
     
     #prtnt @ end for debug puprposes
     def printGlobal(self): #utilityFunction
-        #print(self.variables)
-        print(self.Quad)
+        for quad in self.Quad:
+         print(quad, '\n')
     
 
 
