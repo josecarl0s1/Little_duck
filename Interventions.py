@@ -114,7 +114,6 @@ class Interventions:
         return [id, type, None]
 
     def keyPoint_1(self, id): 
-        print("keyPoint_1")
         if not isinstance(id, str):
             self.PilaO.append(id)
             return 
@@ -124,27 +123,20 @@ class Interventions:
             self.PilaO.append(self.getVariable(id, 'global'))  
 
     def keyPoint_OperationPush(self, operator): #NOTE: in the diagram this function corresponds to both key point 2, 3 & 8
-        print("keyPoint_OperationPush")
         self.POper.append(operator)
 
     def keyPoint_CreateQuad(self, switch): #takes in line to indicate where an error is found NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9
-        print("keyPoint_CreateQuad ", switch)
         opEval = [['+', '-'], ['*', '/'], ['<', '>', '!=']] #NOTE: we need a case for !=
-        print("BEFORE IF ", self.POper, " Operands ", self.PilaO)
         if not self.POper:
             return 
-        print("Before POper ", self.POper[-1], ' ', opEval[switch])
         if self.POper[-1] in opEval[switch]:
             #l_operand, r_operand, operator, result, jumptoIndex
-            print("ENTERS HERE")
             r_operand = self.PilaO.pop()
             l_operand = self.PilaO.pop()
             operator = self.POper.pop()
             result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
-            print("RESUL>T TYPE IS: ", result_Type)
             if result_Type is not None: 
                 #result <- AVAIL.next()
-                print("ENTERS IF")
                 quadLine = [operator, l_operand, r_operand, self.tempVars] #tempVars is an address
                 self.Quad.append(quadLine)
                 self.PilaO.append(self.getTempVar(self.tempVars, result_Type))
@@ -153,14 +145,11 @@ class Interventions:
                 #NOTE: if we weare to clear the temporary variables here is where we would do it
             else:
                 raise Exception('Type Mismatch at line')
-        print("Man")
             
     def keyPoint_PushBottom(self): 
-        print("keyPoint_PushBottom")
         self.POper.append('(')
 
     def keyPoint_PopFalse(self):
-        print("keyPoint_PopFalse")
         self.POper.pop()
     
     #prtnt @ end for debug puprposes
