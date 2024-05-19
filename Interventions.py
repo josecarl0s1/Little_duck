@@ -107,51 +107,67 @@ class Interventions:
 
     tempVars = 0
 
-    def addTempVar(self, type):
-        self.variables['temp'].append([type, None])
+    def addTempVar(self, var):
+        self.variables['temp'].append(var)
+
+    def getTempVar(self, id, type):
+        return [id, type, None]
 
     def keyPoint_1(self, id): 
-        if isinstance(id, str):
-            self.PilaO.append(id) 
-        if self.existsInCurrentScope(id): #NOTE: if you got here the variable exists either in the current scope or global
+        print("keyPoint_1")
+        if not isinstance(id, str):
+            self.PilaO.append(id)
+            return 
+        elif self.existsInCurrentScope(id): #NOTE: if you got here the variable exists either in the current scope or global
             self.PilaO.append(self.getVariable(id, self.scope)) 
         else:
-           self.PilaO.append(self.getVariable(id, 'global'))  
+            self.PilaO.append(self.getVariable(id, 'global'))  
 
     def keyPoint_OperationPush(self, operator): #NOTE: in the diagram this function corresponds to both key point 2, 3 & 8
-        self.PilaO.append(operator)
+        print("keyPoint_OperationPush")
+        self.POper.append(operator)
 
     def keyPoint_CreateQuad(self, switch): #takes in line to indicate where an error is found NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9
-
+        print("keyPoint_CreateQuad ", switch)
         opEval = [['+', '-'], ['*', '/'], ['<', '>', '!=']] #NOTE: we need a case for !=
+        print("BEFORE IF ", self.POper, " Operands ", self.PilaO)
         if not self.POper:
             return 
+        print("Before POper ", self.POper[-1], ' ', opEval[switch])
         if self.POper[-1] in opEval[switch]:
-        
             #l_operand, r_operand, operator, result, jumptoIndex
-            r_operand = self.PilaO.Pop()
-            l_operand = self.PilaO.Pop()
-            operator = self.POper.Pop()
+            print("ENTERS HERE")
+            r_operand = self.PilaO.pop()
+            l_operand = self.PilaO.pop()
+            operator = self.POper.pop()
             result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
+            print("RESUL>T TYPE IS: ", result_Type)
             if result_Type is not None: 
                 #result <- AVAIL.next()
+                print("ENTERS IF")
                 quadLine = [operator, l_operand, r_operand, self.tempVars] #tempVars is an address
-                self.tempVars += 1
                 self.Quad.append(quadLine)
+                self.PilaO.append(self.getTempVar(self.tempVars, result_Type))
+                #self.addTempVar(self.getTempVar(result_Type)) NOTE: IMPLEMENT ID NECESSARY
+                self.tempVars += 1
                 #NOTE: if we weare to clear the temporary variables here is where we would do it
             else:
                 raise Exception('Type Mismatch at line')
+        print("Man")
             
     def keyPoint_PushBottom(self): 
+        print("keyPoint_PushBottom")
         self.POper.append('(')
 
     def keyPoint_PopFalse(self):
-        self.POper.Pop()
+        print("keyPoint_PopFalse")
+        self.POper.pop()
     
     #prtnt @ end for debug puprposes
     def printGlobal(self): #utilityFunction
         #print(self.variables)
         print(self.Quad)
+    
 
 
 inter = Interventions()
