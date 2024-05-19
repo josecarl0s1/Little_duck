@@ -6,7 +6,7 @@ class Interventions:
     def __init__(self) -> None:
         pass
 
-    #functions for adding to the register variables and setting their types
+    #Functions for adding to the Variable Registerand setting their types
 
     #variable registry variables
     variables = {}
@@ -18,10 +18,11 @@ class Interventions:
         self.variables[self.scope].append([id, '', None]) # id, type, value
         self.variablesCount[self.scope] += 1
 
+
     def addValueToVariable (self, id, value): #currently unused
-        for elem in self.variables[self.scope]:
-            if(elem[0] == id):
-                elem[2] = value
+        for var in self.variables[self.scope]:
+            if(var[0] == id):
+                var[2] = value
             
 
     def setTypes(self, type): #set type after declaration
@@ -53,10 +54,104 @@ class Interventions:
                 return
         raise Exception(f"{currId} was not declared in {self.scope} scope, error at line {line}")
     
+    def existsInCurrentScope(self, id): #NOTE: variables exist either in currrent scope or global or don't at all
+        for var in self.variables[self.scope]: 
+            if var[0] == id:
+                return True
+        return False
+    
+    def getVariable(self, id, scope):
+        for var in self.variables[scope]:
+            if var[0] == id:
+                return var
+        return None
+    #Function for Quadruple Generation
+
+    #variables for Quadruple Generation
+
+    #STACKS 
+    '''
+    NOTE: 
+    .append is Push
+    [-1] is Peek
+    .Pop is Pop
+    '''
+    POper = [] #pending operators
+    PilaO = [] #pending operands
+    #QUEUE
+    Quad = [] #l_operand, r_operand, operator, result, jumptoIndex
+    #semantic cube
+    '''
+         0 1 2 3
+       0 int string float bool
+       1
+       2
+       3 
+    '''
+    sCube = {
+        '+' : [['int', 'string', 'float', None],['string', 'string', 'string', 'string'], ['float', 'string', 'float', None], [None, 'string', None, 'bool']],
+        '-': [['int', None, 'float', None],[None, None, None, None],['float', None, 'float', None],[None, None, None, None]],
+        '*': [['int', None, 'float', None], [None, None, None, None], [None, None, 'float', None], [None, None, None, 'bool']],
+        '/': [['int', None, 'float', None],[None, None, None, None],['float', None, 'float', None],[None, None, None, 'bool']],
+        '<': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
+        '>': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
+        '!=': [['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool']]
+    }
+
+    translationDict = {
+        'int': 0,
+        'string': 1,
+        'float': 2,
+        'bool': 3
+    }
+
+    tempVars = 0
+
+    def addTempVar(self, type):
+        self.variables['temp'].append([type, None])
+
+    def keyPoint_1(self, id): 
+        if isinstance(id, str):
+            self.PilaO.append(id) 
+        if self.existsInCurrentScope(id): #NOTE: if you got here the variable exists either in the current scope or global
+            self.PilaO.append(self.getVariable(id, self.scope)) 
+        else:
+           self.PilaO.append(self.getVariable(id, 'global'))  
+
+    def keyPoint_OperationPush(self, operator): #NOTE: in the diagram this function corresponds to both key point 2, 3 & 8
+        self.PilaO.append(operator)
+
+    def keyPoint_CreateQuad(self, switch): #takes in line to indicate where an error is found NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9
+
+        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!=']] #NOTE: we need a case for !=
+        if not self.POper:
+            return 
+        if self.POper[-1] in opEval[switch]:
+        
+            #l_operand, r_operand, operator, result, jumptoIndex
+            r_operand = self.PilaO.Pop()
+            l_operand = self.PilaO.Pop()
+            operator = self.POper.Pop()
+            result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
+            if result_Type is not None: 
+                #result <- AVAIL.next()
+                quadLine = [operator, l_operand, r_operand, self.tempVars] #tempVars is an address
+                self.tempVars += 1
+                self.Quad.append(quadLine)
+                #NOTE: if we weare to clear the temporary variables here is where we would do it
+            else:
+                raise Exception('Type Mismatch at line')
+            
+    def keyPoint_PushBottom(self): 
+        self.POper.append('(')
+
+    def keyPoint_PopFalse(self):
+        self.POper.Pop()
     
     #prtnt @ end for debug puprposes
     def printGlobal(self): #utilityFunction
-        print(self.variables)
+        #print(self.variables)
+        print(self.Quad)
 
 
 inter = Interventions()

@@ -296,6 +296,15 @@ class little_duckListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by little_duckParser#pm_const.
+    def enterPm_const(self, ctx:little_duckParser.Pm_constContext):
+        pass
+
+    # Exit a parse tree produced by little_duckParser#pm_const.
+    def exitPm_const(self, ctx:little_duckParser.Pm_constContext):
+        pass
+
+
     # Enter a parse tree produced by little_duckParser#ic.
     def enterIc(self, ctx:little_duckParser.IcContext):
         pass

@@ -169,6 +169,11 @@ class little_duckVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by little_duckParser#pm_const.
+    def visitPm_const(self, ctx:little_duckParser.Pm_constContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by little_duckParser#ic.
     def visitIc(self, ctx:little_duckParser.IcContext):
         return self.visitChildren(ctx)
