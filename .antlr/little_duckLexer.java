@@ -1,4 +1,4 @@
-// Generated from c:/Users/josec/OneDrive/Documentos/Tec/8vo/Apps Avanzadas/Compiladores/little_duck.g4 by ANTLR 4.13.1
+// Generated from c:/Users/josec/OneDrive/Documentos/GitHub/Little_duck/little_duck.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

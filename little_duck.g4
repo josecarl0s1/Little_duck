@@ -29,7 +29,7 @@ termino: factor l_termino;
 l_termino: ad factor l_termino | ;
 ad: '*' | '/';  
 factor: '(' expression ')' | factor_prime;
-factor_prime: b_factor ic | pm ;
+factor_prime: b_factor ic ;
 b_factor: pm | ;
 ic: ID | cte ; 
 f_call: ID '(' f_call_prime ')' ';' ;

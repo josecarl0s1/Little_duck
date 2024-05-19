@@ -1,0 +1,10 @@
+program test_3;
+
+var a, b, c : int;
+
+
+main {
+    a = a < a * c + b;
+}
+
+end
