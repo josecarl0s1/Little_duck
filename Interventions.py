@@ -129,7 +129,7 @@ class Interventions:
     def keyPoint_OperationPush(self, operator): #NOTE: in the diagram this function corresponds to both key point 2, 3 & 8
         self.POper.append(operator)
 
-    def keyPoint_CreateQuad(self, switch): #takes in line to indicate where an error is found NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9
+    def keyPoint_CreateQuad(self, switch): #NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9
         opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=']] #NOTE: we need a case for !=
         if not self.POper:
             return 
