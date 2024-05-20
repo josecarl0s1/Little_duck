@@ -5,9 +5,20 @@ var a, b, c, d : int;
 
 main {
     if(a+b>d){
-        c = b + c;
-    };
-    a = b + c;
+        if(a<b){
+            a=a;
+            b=b+d;
+        } else {
+            c=a+b;
+        };
+    } else{
+		c=b+c;
+	};
+    d=b+a*c;
+    
+    do{
+		a = b;
+	} while (a != b);
 }
 
 end

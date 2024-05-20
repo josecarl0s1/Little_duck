@@ -159,9 +159,7 @@ class Interventions:
     PJumps = []
     
     
-    def if_createGoToF(self):
-       #print(self.Quad)
-       #print(self.PilaO)
+    def createGoToF(self): #this corresponds to the key point 1 on both id versins and key point 2 for the while
        if self.PilaO[-1][1] != 'bool':
         raise Exception(f'if statement must be evaluated against a bool type')
        else:
@@ -178,8 +176,22 @@ class Interventions:
     def else_Fill(self):
         quad = ['Goto', None, None, None]
         self.Quad.append(quad)
-        indexQuadElse = self.Pjumps.pop()
+
+        indexQuadElse = self.PJumps.pop()
+        self.PJumps.append(len(self.Quad) - 1)
         self.Quad[indexQuadElse][3] = len(self.Quad)
+
+    def whileKeyOne(self): 
+        self.PJumps.append(len(self.Quad))
+
+    def endWhile(self):
+        whileExp = self.PilaO.pop()
+        if whileExp[1] is not 'bool':
+            raise Exception("do-while condition must be bool")
+        loopBack = self.PJumps.pop()
+        quad = ['GOTO', loopBack, None, whileExp[0]]
+        self.Quad.append(quad)
+        #self.Quad[end][3] = len(self.Quad)
 
     
     #prtnt @ end for debug puprposes
