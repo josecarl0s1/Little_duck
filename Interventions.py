@@ -116,9 +116,11 @@ class Interventions:
 
     def keyPoint_1(self, id, fi=None): 
         #32 is INT, 33 is FLOAT
-        if not isinstance(id, str):
-            self.PilaO.append(id)
-            return 
+        if fi is not None:
+            if fi == 32: #INT
+                self.PilaO.append(['CTE', 'int', int(id)]) #CTE can be named that because in this language variables must begin in lowercase
+            elif fi == 33:#FLOAT
+                self.PilaO.append(['CTE', 'float', float(id)])
         elif self.existsInCurrentScope(id): #NOTE: if you got here the variable exists either in the current scope or global
             self.PilaO.append(self.getVariable(id, self.scope)) 
         else:
