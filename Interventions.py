@@ -65,7 +65,7 @@ class Interventions:
             if var[0] == id:
                 return var
         return None
-    #Function for Quadruple Generation
+    #Functions for Quadruple Generation
 
     #variables for Quadruple Generation
 
