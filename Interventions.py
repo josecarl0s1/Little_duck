@@ -114,7 +114,8 @@ class Interventions:
     def getTempVar(self, id, type):
         return [id, type, None]
 
-    def keyPoint_1(self, id): 
+    def keyPoint_1(self, id, fi=None): 
+        #32 is INT, 33 is FLOAT
         if not isinstance(id, str):
             self.PilaO.append(id)
             return 

@@ -4,6 +4,7 @@ var a, b, c, d : int;
 
 
 main {
+    a = b;
     if(a+b>d){
         if(a<b){
             a=a;

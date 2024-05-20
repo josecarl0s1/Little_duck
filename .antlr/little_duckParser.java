@@ -1633,7 +1633,6 @@ public class little_duckParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class Factor_primeContext extends ParserRuleContext {
-		public IcContext ic;
 		public B_factorContext b_factor() {
 			return getRuleContext(B_factorContext.class,0);
 		}
@@ -1655,8 +1654,7 @@ public class little_duckParser extends Parser {
 			setState(274);
 			b_factor();
 			setState(275);
-			((Factor_primeContext)_localctx).ic = ic();
-			inter.keyPoint_1((((Factor_primeContext)_localctx).ic!=null?_input.getText(((Factor_primeContext)_localctx).ic.start,((Factor_primeContext)_localctx).ic.stop):null))
+			ic();
 			# removed | pm
 			}
 		}
@@ -1686,14 +1684,14 @@ public class little_duckParser extends Parser {
 		B_factorContext _localctx = new B_factorContext(_ctx, getState());
 		enterRule(_localctx, 62, RULE_b_factor);
 		try {
-			setState(281);
+			setState(280);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__25:
 			case T__26:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(279);
+				setState(278);
 				pm_const();
 				}
 				break;
@@ -1734,7 +1732,7 @@ public class little_duckParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(283);
+			setState(282);
 			_la = _input.LA(1);
 			if ( !(_la==T__25 || _la==T__26) ) {
 			_errHandler.recoverInline(this);
@@ -1760,6 +1758,7 @@ public class little_duckParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class IcContext extends ParserRuleContext {
 		public Token ID;
+		public CteContext cte;
 		public TerminalNode ID() { return getToken(little_duckParser.ID, 0); }
 		public CteContext cte() {
 			return getRuleContext(CteContext.class,0);
@@ -1774,15 +1773,16 @@ public class little_duckParser extends Parser {
 		IcContext _localctx = new IcContext(_ctx, getState());
 		enterRule(_localctx, 66, RULE_ic);
 		try {
-			setState(290);
+			setState(291);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(285);
+				setState(284);
 				((IcContext)_localctx).ID = match(ID);
 				inter.isNotDefined((((IcContext)_localctx).ID!=null?((IcContext)_localctx).ID.getText():null), (((IcContext)_localctx).ID!=null?((IcContext)_localctx).ID.getLine():0))
+				inter.keyPoint_1((((IcContext)_localctx).ID!=null?((IcContext)_localctx).ID.getText():null))
 				}
 				break;
 			case INT:
@@ -1790,7 +1790,8 @@ public class little_duckParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(287);
-				cte();
+				((IcContext)_localctx).cte = cte();
+				inter.keyPoint_1((((IcContext)_localctx).cte!=null?_input.getText(((IcContext)_localctx).cte.start,((IcContext)_localctx).cte.stop):null), (((IcContext)_localctx).cte!=null?(((IcContext)_localctx).cte.stop):null).type)
 				# This rule chesk if this is ID or Constant
 				}
 				break;
@@ -1827,15 +1828,15 @@ public class little_duckParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(292);
-			match(ID);
 			setState(293);
-			match(T__10);
+			match(ID);
 			setState(294);
-			f_call_prime();
+			match(T__10);
 			setState(295);
-			match(T__11);
+			f_call_prime();
 			setState(296);
+			match(T__11);
+			setState(297);
 			match(T__1);
 			}
 		}
@@ -1868,7 +1869,7 @@ public class little_duckParser extends Parser {
 		F_call_primeContext _localctx = new F_call_primeContext(_ctx, getState());
 		enterRule(_localctx, 70, RULE_f_call_prime);
 		try {
-			setState(302);
+			setState(303);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__10:
@@ -1879,9 +1880,9 @@ public class little_duckParser extends Parser {
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(298);
-				expression();
 				setState(299);
+				expression();
+				setState(300);
 				l_f_call_prime();
 				}
 				break;
@@ -1920,15 +1921,15 @@ public class little_duckParser extends Parser {
 		L_f_call_primeContext _localctx = new L_f_call_primeContext(_ctx, getState());
 		enterRule(_localctx, 72, RULE_l_f_call_prime);
 		try {
-			setState(307);
+			setState(308);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__6:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(304);
-				match(T__6);
 				setState(305);
+				match(T__6);
+				setState(306);
 				f_call_prime();
 				}
 				break;
@@ -1953,7 +1954,7 @@ public class little_duckParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001#\u0136\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001#\u0137\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -1997,14 +1998,14 @@ public class little_duckParser extends Parser {
 		"\u001b\u0001\u001b\u0003\u001b\u0106\b\u001b\u0001\u001c\u0001\u001c\u0001"+
 		"\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001"+
 		"\u001d\u0003\u001d\u0111\b\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0001"+
-		"\u001e\u0001\u001e\u0001\u001f\u0001\u001f\u0003\u001f\u011a\b\u001f\u0001"+
-		" \u0001 \u0001!\u0001!\u0001!\u0001!\u0001!\u0003!\u0123\b!\u0001\"\u0001"+
-		"\"\u0001\"\u0001\"\u0001\"\u0001\"\u0001#\u0001#\u0001#\u0001#\u0003#"+
-		"\u012f\b#\u0001$\u0001$\u0001$\u0003$\u0134\b$\u0001$\u0000\u0000%\u0000"+
-		"\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c"+
-		"\u001e \"$&(*,.02468:<>@BDFH\u0000\u0005\u0001\u0000\b\t\u0001\u0000 "+
-		"!\u0001\u0000\u0016\u0018\u0001\u0000\u001a\u001b\u0001\u0000\u001c\u001d"+
-		"\u0126\u0000J\u0001\u0000\u0000\u0000\u0002_\u0001\u0000\u0000\u0000\u0004"+
+		"\u001e\u0001\u001f\u0001\u001f\u0003\u001f\u0119\b\u001f\u0001 \u0001"+
+		" \u0001!\u0001!\u0001!\u0001!\u0001!\u0001!\u0001!\u0003!\u0124\b!\u0001"+
+		"\"\u0001\"\u0001\"\u0001\"\u0001\"\u0001\"\u0001#\u0001#\u0001#\u0001"+
+		"#\u0003#\u0130\b#\u0001$\u0001$\u0001$\u0003$\u0135\b$\u0001$\u0000\u0000"+
+		"%\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a"+
+		"\u001c\u001e \"$&(*,.02468:<>@BDFH\u0000\u0005\u0001\u0000\b\t\u0001\u0000"+
+		" !\u0001\u0000\u0016\u0018\u0001\u0000\u001a\u001b\u0001\u0000\u001c\u001d"+
+		"\u0127\u0000J\u0001\u0000\u0000\u0000\u0002_\u0001\u0000\u0000\u0000\u0004"+
 		"a\u0001\u0000\u0000\u0000\u0006h\u0001\u0000\u0000\u0000\br\u0001\u0000"+
 		"\u0000\u0000\nt\u0001\u0000\u0000\u0000\f\u0085\u0001\u0000\u0000\u0000"+
 		"\u000e\u008f\u0001\u0000\u0000\u0000\u0010\u0094\u0001\u0000\u0000\u0000"+
@@ -2018,9 +2019,9 @@ public class little_duckParser extends Parser {
 		"\u00f6\u0001\u0000\u0000\u00002\u00f8\u0001\u0000\u0000\u00004\u00fa\u0001"+
 		"\u0000\u0000\u00006\u0105\u0001\u0000\u0000\u00008\u0107\u0001\u0000\u0000"+
 		"\u0000:\u0110\u0001\u0000\u0000\u0000<\u0112\u0001\u0000\u0000\u0000>"+
-		"\u0119\u0001\u0000\u0000\u0000@\u011b\u0001\u0000\u0000\u0000B\u0122\u0001"+
-		"\u0000\u0000\u0000D\u0124\u0001\u0000\u0000\u0000F\u012e\u0001\u0000\u0000"+
-		"\u0000H\u0133\u0001\u0000\u0000\u0000JK\u0005\u0001\u0000\u0000KL\u0005"+
+		"\u0118\u0001\u0000\u0000\u0000@\u011a\u0001\u0000\u0000\u0000B\u0123\u0001"+
+		"\u0000\u0000\u0000D\u0125\u0001\u0000\u0000\u0000F\u012f\u0001\u0000\u0000"+
+		"\u0000H\u0134\u0001\u0000\u0000\u0000JK\u0005\u0001\u0000\u0000KL\u0005"+
 		"\"\u0000\u0000LM\u0005\u0002\u0000\u0000MN\u0006\u0000\uffff\uffff\u0000"+
 		"NO\u0003\u0002\u0001\u0000OP\u0003\f\u0006\u0000PQ\u0005\u0003\u0000\u0000"+
 		"QR\u0003\u0012\t\u0000RS\u0005\u0004\u0000\u0000ST\u0006\u0000\uffff\uffff"+
@@ -2121,25 +2122,25 @@ public class little_duckParser extends Parser {
 		"\u0000\u010f\u0111\u0003<\u001e\u0000\u0110\u0109\u0001\u0000\u0000\u0000"+
 		"\u0110\u010f\u0001\u0000\u0000\u0000\u0111;\u0001\u0000\u0000\u0000\u0112"+
 		"\u0113\u0003>\u001f\u0000\u0113\u0114\u0003B!\u0000\u0114\u0115\u0006"+
-		"\u001e\uffff\uffff\u0000\u0115\u0116\u0006\u001e\uffff\uffff\u0000\u0116"+
-		"=\u0001\u0000\u0000\u0000\u0117\u011a\u0003@ \u0000\u0118\u011a\u0001"+
-		"\u0000\u0000\u0000\u0119\u0117\u0001\u0000\u0000\u0000\u0119\u0118\u0001"+
-		"\u0000\u0000\u0000\u011a?\u0001\u0000\u0000\u0000\u011b\u011c\u0007\u0003"+
-		"\u0000\u0000\u011cA\u0001\u0000\u0000\u0000\u011d\u011e\u0005\"\u0000"+
-		"\u0000\u011e\u0123\u0006!\uffff\uffff\u0000\u011f\u0120\u0003$\u0012\u0000"+
-		"\u0120\u0121\u0006!\uffff\uffff\u0000\u0121\u0123\u0001\u0000\u0000\u0000"+
-		"\u0122\u011d\u0001\u0000\u0000\u0000\u0122\u011f\u0001\u0000\u0000\u0000"+
-		"\u0123C\u0001\u0000\u0000\u0000\u0124\u0125\u0005\"\u0000\u0000\u0125"+
-		"\u0126\u0005\u000b\u0000\u0000\u0126\u0127\u0003F#\u0000\u0127\u0128\u0005"+
-		"\f\u0000\u0000\u0128\u0129\u0005\u0002\u0000\u0000\u0129E\u0001\u0000"+
-		"\u0000\u0000\u012a\u012b\u0003&\u0013\u0000\u012b\u012c\u0003H$\u0000"+
-		"\u012c\u012f\u0001\u0000\u0000\u0000\u012d\u012f\u0001\u0000\u0000\u0000"+
-		"\u012e\u012a\u0001\u0000\u0000\u0000\u012e\u012d\u0001\u0000\u0000\u0000"+
-		"\u012fG\u0001\u0000\u0000\u0000\u0130\u0131\u0005\u0007\u0000\u0000\u0131"+
-		"\u0134\u0003F#\u0000\u0132\u0134\u0001\u0000\u0000\u0000\u0133\u0130\u0001"+
-		"\u0000\u0000\u0000\u0133\u0132\u0001\u0000\u0000\u0000\u0134I\u0001\u0000"+
-		"\u0000\u0000\u0013_hr\u0085\u008f\u0094\u009f\u00a5\u00b0\u00b7\u00d1"+
-		"\u00de\u00f6\u0105\u0110\u0119\u0122\u012e\u0133";
+		"\u001e\uffff\uffff\u0000\u0115=\u0001\u0000\u0000\u0000\u0116\u0119\u0003"+
+		"@ \u0000\u0117\u0119\u0001\u0000\u0000\u0000\u0118\u0116\u0001\u0000\u0000"+
+		"\u0000\u0118\u0117\u0001\u0000\u0000\u0000\u0119?\u0001\u0000\u0000\u0000"+
+		"\u011a\u011b\u0007\u0003\u0000\u0000\u011bA\u0001\u0000\u0000\u0000\u011c"+
+		"\u011d\u0005\"\u0000\u0000\u011d\u011e\u0006!\uffff\uffff\u0000\u011e"+
+		"\u0124\u0006!\uffff\uffff\u0000\u011f\u0120\u0003$\u0012\u0000\u0120\u0121"+
+		"\u0006!\uffff\uffff\u0000\u0121\u0122\u0006!\uffff\uffff\u0000\u0122\u0124"+
+		"\u0001\u0000\u0000\u0000\u0123\u011c\u0001\u0000\u0000\u0000\u0123\u011f"+
+		"\u0001\u0000\u0000\u0000\u0124C\u0001\u0000\u0000\u0000\u0125\u0126\u0005"+
+		"\"\u0000\u0000\u0126\u0127\u0005\u000b\u0000\u0000\u0127\u0128\u0003F"+
+		"#\u0000\u0128\u0129\u0005\f\u0000\u0000\u0129\u012a\u0005\u0002\u0000"+
+		"\u0000\u012aE\u0001\u0000\u0000\u0000\u012b\u012c\u0003&\u0013\u0000\u012c"+
+		"\u012d\u0003H$\u0000\u012d\u0130\u0001\u0000\u0000\u0000\u012e\u0130\u0001"+
+		"\u0000\u0000\u0000\u012f\u012b\u0001\u0000\u0000\u0000\u012f\u012e\u0001"+
+		"\u0000\u0000\u0000\u0130G\u0001\u0000\u0000\u0000\u0131\u0132\u0005\u0007"+
+		"\u0000\u0000\u0132\u0135\u0003F#\u0000\u0133\u0135\u0001\u0000\u0000\u0000"+
+		"\u0134\u0131\u0001\u0000\u0000\u0000\u0134\u0133\u0001\u0000\u0000\u0000"+
+		"\u0135I\u0001\u0000\u0000\u0000\u0013_hr\u0085\u008f\u0094\u009f\u00a5"+
+		"\u00b0\u00b7\u00d1\u00de\u00f6\u0105\u0110\u0118\u0123\u012f\u0134";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
