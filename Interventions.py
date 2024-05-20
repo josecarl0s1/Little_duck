@@ -129,8 +129,8 @@ class Interventions:
     def keyPoint_OperationPush(self, operator): #NOTE: in the diagram this function corresponds to both key point 2, 3 & 8
         self.POper.append(operator)
 
-    def keyPoint_CreateQuad(self, switch): #NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9
-        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=']] #NOTE: we need a case for !=
+    def keyPoint_CreateQuad(self, switch): #NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9, 3 corresponds to assignation
+        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=']] 
         if not self.POper:
             return 
         if self.POper[-1] in opEval[switch]:
@@ -194,10 +194,9 @@ class Interventions:
         loopBack = self.PJumps.pop()
         quad = ['GOTO', loopBack, None, whileExp[0]]
         self.Quad.append(quad)
-        #self.Quad[end][3] = len(self.Quad)
 
     
-    #prtnt @ end for debug puprposes
+    #print @ end for debug puprposes
     def printGlobal(self): #utilityFunction
         for quad in self.Quad:
          print(quad, '\n')

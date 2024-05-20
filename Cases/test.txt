@@ -1,10 +1,9 @@
 program test_3;
 
-var a, b, c, d : int;
+var a, b, c, d, e, f, h : int;
 
 
 main {
-    a = 5;
     if(a+b>d){
         if(a<b){
             a=a;
@@ -16,10 +15,6 @@ main {
 		c=b+c;
 	};
     d=b+a*c;
-    
-    do{
-		a = b;
-	} while (a != b);
 }
 
 end
