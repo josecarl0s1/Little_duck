@@ -93,7 +93,9 @@ class Interventions:
         '<': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
         '>': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
         '!=': [['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool'],['bool', 'bool', 'bool', 'bool']],
-        '=': [['int', 'string', 'float', None],['string', 'string', 'string', None], ['float', 'string', 'float', None], [None, 'string', None, 'bool']]
+        '=': [['int', 'string', 'float', None],['string', 'string', 'string', None], ['float', 'string', 'float', None], [None, 'string', None, 'bool']],
+        ',': [['string', 'string', 'string', 'string'], ['string', 'string', 'string', 'string'], ['string', 'string', 'string', 'string'], ['string', 'string', 'string', 'string']],
+        'PRINT': [['string', 'string', 'string', 'string'], ['string', 'string', 'string', 'string'], ['string', 'string', 'string', 'string'], ['string', 'string', 'string', 'string']]
     }
 
     translationDict = {
@@ -132,15 +134,23 @@ class Interventions:
         self.POper.append(operator)
 
     def keyPoint_CreateQuad(self, switch): #NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9, 3 corresponds to assignation
-        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=']] 
+        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=', ','], ['PRINT']] 
         if not self.POper: #if stack is empty
             return 
         if self.POper[-1] in opEval[switch]:    
-
+            
             #operator, l_operand, r_operand, result
             r_operand = self.PilaO.pop()
-            l_operand = self.PilaO.pop()
             operator = self.POper.pop()
+            #special case for 'PRINT'
+            if operator == 'PRINT':
+                quadLine = [operator, r_operand, None, None]
+                self.Quad.append(quadLine)
+                return
+            
+            l_operand = self.PilaO.pop()
+            
+            
             result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
             if result_Type is not None: 
 
@@ -210,11 +220,9 @@ class Interventions:
     def printGlobal(self): #utilityFunction
         for quad in self.Quad:
          print(quad, '\n')
-        for dic in self.variables: 
-            print('Dictionary: ', dic)
-            for var in self.variables[dic]: 
-                print("Variable: ", var)
-    
-
+        # for dic in self.variables: 
+        #     print('Dictionary: ', dic)
+        #     for var in self.variables[dic]: 
+        #         print("Variable: ", var)
 
 inter = Interventions()

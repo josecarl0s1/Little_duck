@@ -4,7 +4,7 @@ var a, b, c, d, e, f, h, x, p, z: int;
 
 
 main {
-    if(a+b>d){
+        if(a+b>d){
         if(a<b){
             a=b;
             b=b+d;
@@ -20,6 +20,7 @@ main {
 	} while (
 		z != p
 	);
+    print(a, b, c);
 }
 
 end
