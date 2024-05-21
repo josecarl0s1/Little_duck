@@ -144,7 +144,11 @@ class Interventions:
             result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
             if result_Type is not None: 
 
-                
+                #special case for =
+                if operator == '=':
+                    quadLine = [operator, r_operand, None, l_operand] #['=', operator value to be saved, _, memorySpace to save]
+                    self.Quad.append(quadLine)
+                    return
 
                 tempVar_address, tempVar = self.getTempVar(self.tempVars, result_Type) #get variable address and variable
                 self.PilaO.append(tempVar_address)
@@ -174,32 +178,31 @@ class Interventions:
         raise Exception(f'if statement must be evaluated against a bool type')
        else:
         result = self.PilaO.pop()
-        #l_operand, r_operand, operator, result
-        quad = ['GotoF', result, None, None]
+        quad = ['GotoF', result, None, None] #result is variable against which the if will be checked
         self.Quad.append(quad)
         self.PJumps.append(len(self.Quad) - 1)
 
     def if_Fill(self):
         indexQuadIf = self.PJumps.pop()
-        self.Quad[indexQuadIf][3] = len(self.Quad)
+        self.Quad[indexQuadIf][3] = len(self.Quad)#assign Goto index in quad
 
     def else_Fill(self):
         quad = ['Goto', None, None, None]
         self.Quad.append(quad)
 
         indexQuadElse = self.PJumps.pop()
-        self.PJumps.append(len(self.Quad) - 1)
-        self.Quad[indexQuadElse][3] = len(self.Quad)
+        self.PJumps.append(len(self.Quad) - 1) #append index to jump to later
+        self.Quad[indexQuadElse][3] = len(self.Quad) #assign GotoF index in quad
 
     def whileKeyOne(self): 
         self.PJumps.append(len(self.Quad))
 
     def endWhile(self):
         whileExp = self.PilaO.pop()
-        if whileExp[1] is not 'bool':
+        if whileExp[1] != 'bool':
             raise Exception("do-while condition must be bool")
         loopBack = self.PJumps.pop()
-        quad = ['GOTO', loopBack, None, whileExp]
+        quad = ['GOTO', whileExp, None, loopBack] #whileExp is variable against which the while should be eval, loopBack is the index to return to
         self.Quad.append(quad)
 
     
