@@ -80,6 +80,7 @@ class Interventions:
     PilaO = [] #pending operands
     #QUEUE
     Quad = [] #l_operand, r_operand, operator, resultIndex NOTE: results are saved in the variables dictionary with the 'temp' key
+    minusOne = False #important if there is a negative one
     #semantic cube
     '''
         0   1      2     3
@@ -88,7 +89,7 @@ class Interventions:
     sCube = {
         '+' : [['int', 'string', 'float', None],['string', 'string', 'string', 'string'], ['float', 'string', 'float', None], [None, 'string', None, 'bool']],
         '-': [['int', None, 'float', None],[None, None, None, None],['float', None, 'float', None],[None, None, None, None]],
-        '*': [['int', None, 'float', None], [None, None, None, None], [None, None, 'float', None], [None, None, None, 'bool']],
+        '*': [['int', None, 'float', None], [None, None, None, None], ['float', None, 'float', None], [None, None, None, 'bool']],
         '/': [['int', None, 'float', None],[None, None, None, None],['float', None, 'float', None],[None, None, None, 'bool']],
         '<': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
         '>': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
@@ -129,6 +130,8 @@ class Interventions:
             self.PilaO.append(self.getVariable(id, self.scope)) 
         else:
             self.PilaO.append(self.getVariable(id, 'global'))  
+        if self.minusOne: 
+            self.timesMinusOne()
 
     def keyPoint_OperationPush(self, operator): #NOTE: in the diagram this function corresponds to both key point 2, 3 & 8
         self.POper.append(operator)
@@ -152,6 +155,9 @@ class Interventions:
             
             
             result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
+            print("RESULT TYPE", result_Type, " OPERATOR: ", operator)
+            print("L OPERAND: ", l_operand[1], " translation dict: ", self.translationDict[l_operand[1]])
+            print("R OPERAND: ", r_operand[1], " translation dict: ", self.translationDict[r_operand[1]])
             if result_Type is not None: 
 
                 #special case for =
@@ -168,10 +174,26 @@ class Interventions:
                 self.Quad.append(quadLine)
 
                 self.tempVars += 1
+                
                 #NOTE: if we weare to clear the temporary variables here is where we would do it
             else:
                 raise Exception('Type Mismatch at line')
             
+    def timesMinusOne(self):
+        l_operand = self.PilaO.pop()
+        if l_operand[1] != 'int' and l_operand[1] != 'float':
+            raise Exception(f"{l_operand[1]} variable type cannot be negative")
+        tempVar_address, tempVar =self.getTempVar(self.tempVars, l_operand[1])
+        self.PilaO.append(tempVar_address)
+        self.addTempVar(tempVar)
+        quadLine = ['*-1', l_operand, None, tempVar_address]
+        self.Quad.append(quadLine)
+        self.tempVars += 1
+        self.minusOne = False
+
+    def setMinusOne(self):
+        self.minusOne = True
+
     def keyPoint_PushBottom(self): 
         self.POper.append('(')
 

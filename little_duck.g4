@@ -34,7 +34,7 @@ ad: '*' | '/';
 factor: '(' {inter.keyPoint_PushBottom()}  expression ')'{inter.keyPoint_PopFalse()} | factor_prime;
 factor_prime: b_factor ic  {# removed | pm}; 
 b_factor: pm_const | ;
-pm_const: '+' | '-';
+pm_const: '+' | '-' {inter.setMinusOne()};
 ic: ID {inter.isNotDefined($ID.text, $ID.line)}{inter.keyPoint_1($ID.text)}| cte {inter.keyPoint_1($cte.text, $cte.stop.type)} {# This rule chesk if this is ID or Constant}; 
 f_call: ID '(' f_call_prime ')' ';' ;
 f_call_prime: expression l_f_call_prime | ;
