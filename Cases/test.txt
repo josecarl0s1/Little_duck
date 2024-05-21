@@ -4,6 +4,8 @@ var a, b, c, d, e, f, h, x, p, z: int;
 
 
 main {
+    print(a);
+    a = b + c*(e/d)*c;
         if(a+b>d){
         if(a<b){
             a=b;
