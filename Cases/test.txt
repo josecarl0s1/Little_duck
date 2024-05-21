@@ -1,12 +1,12 @@
-program test_3;
+program test;
 
-var a, b, c, d, e, f, h : int;
+var a, b, c, d, e, f, h, x, p, z: int;
 
 
 main {
     if(a+b>d){
         if(a<b){
-            a=a;
+            a=b;
             b=b+d;
         } else {
             c=a+b;
@@ -15,6 +15,11 @@ main {
 		c=b+c;
 	};
     d=b+a*c;
+    do{
+		x = p;
+	} while (
+		z != p
+	);
 }
 
 end

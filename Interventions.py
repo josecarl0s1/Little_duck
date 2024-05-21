@@ -60,10 +60,10 @@ class Interventions:
                 return True
         return False
     
-    def getVariable(self, id, scope):
-        for var in self.variables[scope]:
+    def getVariable(self, id, scope): #returns variable with an address in the place of where value would be in its normal directory
+        for index, var in enumerate(self.variables[scope]):
             if var[0] == id:
-                return var
+                return [var[0], var[1], [scope, index]]
         return None
     #Functions for Quadruple Generation
 
@@ -109,10 +109,12 @@ class Interventions:
         if 'temp' not in self.variables: 
             self.variables['temp'] = []
             self.variables['temp'].append(var)
+            return
         self.variables['temp'].append(var)
 
     def getTempVar(self, id, type):
-        return [id, type, None]
+        tempVarId = '$tempVar'+ str(id)
+        return [tempVarId, type, ['temp', id]], [tempVarId, type, None]
 
     def keyPoint_1(self, id, fi=None): 
         #32 is INT, 33 is FLOAT
@@ -131,21 +133,26 @@ class Interventions:
 
     def keyPoint_CreateQuad(self, switch): #NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9, 3 corresponds to assignation
         opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=']] 
-        if not self.POper:
+        if not self.POper: #if stack is empty
             return 
-        if self.POper[-1] in opEval[switch]:
+        if self.POper[-1] in opEval[switch]:    
+
             #operator, l_operand, r_operand, result
             r_operand = self.PilaO.pop()
             l_operand = self.PilaO.pop()
             operator = self.POper.pop()
             result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
             if result_Type is not None: 
-                #result <- AVAIL.next()
-                quadLine = [operator, l_operand, r_operand, self.tempVars] #tempVars is an address
-                self.Quad.append(quadLine)
-                tempVar = self.getTempVar(self.tempVars, result_Type)
-                self.PilaO.append(tempVar)
+
+                
+
+                tempVar_address, tempVar = self.getTempVar(self.tempVars, result_Type) #get variable address and variable
+                self.PilaO.append(tempVar_address)
                 self.addTempVar(tempVar) 
+                
+                quadLine = [operator, l_operand, r_operand, tempVar_address] #create quad line
+                self.Quad.append(quadLine)
+
                 self.tempVars += 1
                 #NOTE: if we weare to clear the temporary variables here is where we would do it
             else:
@@ -192,7 +199,7 @@ class Interventions:
         if whileExp[1] is not 'bool':
             raise Exception("do-while condition must be bool")
         loopBack = self.PJumps.pop()
-        quad = ['GOTO', loopBack, None, whileExp[0]]
+        quad = ['GOTO', loopBack, None, whileExp]
         self.Quad.append(quad)
 
     
@@ -200,6 +207,10 @@ class Interventions:
     def printGlobal(self): #utilityFunction
         for quad in self.Quad:
          print(quad, '\n')
+        for dic in self.variables: 
+            print('Dictionary: ', dic)
+            for var in self.variables[dic]: 
+                print("Variable: ", var)
     
 
 
