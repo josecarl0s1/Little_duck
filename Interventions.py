@@ -87,9 +87,9 @@ class Interventions:
         int string float bool        
     '''
     sCube = {
-        '+' : [['int', 'string', 'float', None],['string', 'string', 'string', 'string'], ['float', 'string', 'float', None], [None, 'string', None, 'bool']],
+        '+' : [['int', 'string', 'float', None],['string', 'string', 'string', 'string'], ['float', 'string', 'float', None], [None, 'string', None, None]],
         '-': [['int', None, 'float', None],[None, None, None, None],['float', None, 'float', None],[None, None, None, None]],
-        '*': [['int', None, 'float', None], [None, None, None, None], ['float', None, 'float', None], [None, None, None, 'bool']],
+        '*': [['int', None, 'float', None], [None, None, None, None], ['float', None, 'float', None], [None, None, None, None]],
         '/': [['int', None, 'float', None],[None, None, None, None],['float', None, 'float', None],[None, None, None, 'bool']],
         '<': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
         '>': [['bool', None, 'bool', None],[None, 'bool', None, None],['bool', None, 'bool', None],[None, None, None, None]],
@@ -155,9 +155,7 @@ class Interventions:
             
             
             result_Type = self.sCube[operator][self.translationDict[l_operand[1]]][self.translationDict[r_operand[1]]]
-            print("RESULT TYPE", result_Type, " OPERATOR: ", operator)
-            print("L OPERAND: ", l_operand[1], " translation dict: ", self.translationDict[l_operand[1]])
-            print("R OPERAND: ", r_operand[1], " translation dict: ", self.translationDict[r_operand[1]])
+            
             if result_Type is not None: 
 
                 #special case for =
@@ -237,14 +235,98 @@ class Interventions:
         quad = ['GOTO', whileExp, None, loopBack] #whileExp is variable against which the while should be eval, loopBack is the index to return to
         self.Quad.append(quad)
 
+    #Interventions for functions
+
+    funcParams = {}
+    def countParams(self):
+        if self.scope not in self.funcParams:
+            self.funcParams[self.scope] = 1
+        else:
+            self.funcParams[self.scope]+=1
+
+    def endFunc(self):
+        quadLine = ["endfunc", None, None, None]
+        self.Quad.append(quadLine)
     
-    #print @ end for debug puprposes
+    
+    def endQuad(self):
+        quadLine = ['EOF', None, None, None]
+        self.Quad.append(quadLine)
+
+    #Execution
+    casting = {
+        'int': int, 
+        'float': float, 
+        'string': str, 
+        'bool': bool}
+    operations = {
+        '+': lambda x, y: x+y,
+        '-': lambda x, y: x-y,
+        '*': lambda x, y: x*y,
+        '/': lambda x, y: x/y,
+        ',': lambda x, y: x+y,
+        '<': lambda x, y: x<y,
+        '>': lambda x, y: x>y,
+    }
+    #code for execution
+    mainQuad = 0
+    def setMainQuad(self):
+        if len(self.Quad) == 0:
+            self.mainQuad = 0
+            return
+        self.mainQuad = len(self.Quad)-1
+    
+    def setVariable(self, address, value):
+        self.variables[address[0]][address[1]][2] = value
+    
+    def getValue(self, var):
+        if var[0] == 'CTE':
+            return var[-1]
+        address = var[2]
+        return self.variables[address[0]][address[1]][2]
+
+    def executeProgram(self): # not equals assing
+        pointer = self.mainQuad
+        contProg = True
+        while contProg:
+            quadLine = self.Quad[pointer]
+            operator = quadLine[0]
+            l_operand = quadLine[1]
+            r_operand = quadLine[2]
+            result = quadLine[3]
+            if operator == 'EOF':
+                contProg = False
+            if operator == 'PRINT':
+                print(self.getValue(l_operand))
+            if operator in ['+', '-', '*', '/', ',', '<', '>']:
+                cast = self.casting[result[1]]
+                print(cast)
+                print(l_operand)
+                print(r_operand)
+                print(self.getValue(l_operand))
+                print(self.getValue(r_operand))
+                print(operator)
+                self.setVariable(result[2], self.operations[operator](
+                    cast(self.getValue(l_operand)), 
+                    cast(self.getValue(r_operand))
+                ))
+            if operator == '=':
+                self.setVariable(result[2], self.getValue(l_operand))
+
+            pointer += 1
+     
+     #print @ end for debug puprposes
     def printGlobal(self): #utilityFunction
         for quad in self.Quad:
          print(quad, '\n')
-        # for dic in self.variables: 
-        #     print('Dictionary: ', dic)
-        #     for var in self.variables[dic]: 
-        #         print("Variable: ", var)
+        for dic in self.variables: 
+            print('Dictionary: ', dic)
+            for var in self.variables[dic]: 
+                print("Variable: ", var)
+        print(self.funcParams)
+        print(self.mainQuad)
+        self.executeProgram()
 
+        
+    
 inter = Interventions()

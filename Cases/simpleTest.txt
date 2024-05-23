@@ -1,0 +1,10 @@
+program test;
+
+var a:int;
+
+main {
+    a = 5.2 * 5;
+    print(a+5, a);
+}
+
+end

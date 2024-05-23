@@ -2,6 +2,12 @@ program test;
 
 var a, b, c, d, e, f, h, x, p, z: int;
 
+void ducky_func(n:int,m:float)[
+    var y:int;
+    {
+	n = 5 + 5;
+	m = n * 8;
+}];
 
 main {
     print(a);
@@ -22,7 +28,8 @@ main {
 	} while (
 		z != p
 	);
-    print(a, b, c);
+    print(a+4, b+6, c*9);
+    ducky_func(a+b, c+b);
 }
 
 end

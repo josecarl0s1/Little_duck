@@ -2,14 +2,14 @@ grammar little_duck;
 @parser::header {
 from Interventions import *
 }
-programa: 'program' ID ';' {inter.setVariableScope('global')} vars  funcs 'main' body 'end' {inter.printGlobal()}EOF;
+programa: 'program' ID ';' {inter.setVariableScope('global')} vars  funcs 'main' {inter.setMainQuad()} body 'end' EOF{inter.endQuad()}{inter.printGlobal()};
 vars: 'var' vars_prime ':' type {inter.setTypes($type.text)} ';' l_vars | ;
 vars_prime: ID {inter.addVariable($ID.text, $ID.line)}vars_prime_prime ;
 vars_prime_prime: ',' vars_prime | ;
 l_vars: vars_prime ':' type ';' l_vars {inter.setTypes($type.text)}| ;
 type: 'int' | 'float' ;
-funcs: 'void' ID {inter.setVariableScope($ID.text)} '(' funcs_prime ')' '[' vars body ']' ';'{inter.setVariableScope('global')} funcs | ;
-funcs_prime: ID {inter.addVariable($ID.text, $ID.line)}':' type {inter.setTypes($type.text)} funcs_prime_prime | ;
+funcs: 'void' ID {inter.setVariableScope($ID.text)} '(' funcs_prime ')' '[' vars body ']' ';'{inter.setVariableScope('global')}{inter.endFunc()} funcs | ;
+funcs_prime: ID {inter.addVariable($ID.text, $ID.line)}':' type {inter.setTypes($type.text)} {inter.countParams()}funcs_prime_prime | ;
 funcs_prime_prime: ',' funcs_prime | ;
 body: '{' l_statement '}' ;
 statement: assign | condition | cycle | f_call | print ;
