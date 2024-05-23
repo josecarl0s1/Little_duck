@@ -285,7 +285,7 @@ class Interventions:
         address = var[2]
         return self.variables[address[0]][address[1]][2]
 
-    def executeProgram(self): # not equals assing
+    def executeProgram(self): # not equals 
         pointer = self.mainQuad
         contProg = True
         while contProg:
@@ -296,24 +296,32 @@ class Interventions:
             result = quadLine[3]
             if operator == 'EOF':
                 contProg = False
-            if operator == 'PRINT':
+            elif operator == 'PRINT':
                 print(self.getValue(l_operand))
-            if operator in ['+', '-', '*', '/', ',', '<', '>']:
+                pointer += 1
+            elif operator in ['+', '-', '*', '/', ',']:
                 cast = self.casting[result[1]]
-                print(cast)
-                print(l_operand)
-                print(r_operand)
-                print(self.getValue(l_operand))
-                print(self.getValue(r_operand))
-                print(operator)
                 self.setVariable(result[2], self.operations[operator](
                     cast(self.getValue(l_operand)), 
                     cast(self.getValue(r_operand))
                 ))
-            if operator == '=':
+                pointer += 1
+            elif operator in ['<', '>']:
+                self.setVariable(result[2], self.operations[operator](
+                    self.getValue(l_operand), 
+                    self.getValue(r_operand)
+                ))
+                pointer += 1
+            elif operator == '=':
                 self.setVariable(result[2], self.getValue(l_operand))
-
-            pointer += 1
+                pointer += 1
+            elif operator == 'GotoF':
+                if not self.getValue(l_operand):
+                    pointer = result
+                else:
+                    pointer += 1
+            else:
+                pointer += 1
      
      #print @ end for debug puprposes
     def printGlobal(self): #utilityFunction
@@ -325,6 +333,7 @@ class Interventions:
                 print("Variable: ", var)
         print(self.funcParams)
         print(self.mainQuad)
+        print("***********************************************")
         self.executeProgram()
 
         

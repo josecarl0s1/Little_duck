@@ -1,10 +1,14 @@
 program test;
 
-var a:int;
+var a,b:int;
 
 main {
     a = 5.2 * 5;
-    print(a+5, a);
+    b = 5;
+    if(a > b){
+        print(a);
+    };
+    print(b,a);
 }
 
 end
