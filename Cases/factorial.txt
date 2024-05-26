@@ -10,7 +10,7 @@ main {
 		factorial = factorial * i;
         i = i + 1;
 	} while (i< (n+1));
-    print("El factorial es: ", factorial)
+    print("El factorial es: ", factorial);
 }
 
 end

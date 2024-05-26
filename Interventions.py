@@ -120,12 +120,14 @@ class Interventions:
         return [tempVarId, type, ['temp', id]], [tempVarId, type, None]
 
     def keyPoint_1(self, id, fi=None): 
-        #32 is INT, 33 is FLOAT
+        #32 is INT, 33 is FLOAT, 35 is STRING
         if fi is not None:
             if fi == 32: #INT
                 self.PilaO.append(['CTE', 'int', int(id)]) #CTE can be named that because in this language variables must begin in lowercase
             elif fi == 33:#FLOAT
                 self.PilaO.append(['CTE', 'float', float(id)])
+            elif fi == 35: #STRING
+                self.PilaO.append(['CTE', 'string', str(id).replace('\"', '')])
         elif self.existsInCurrentScope(id): #NOTE: if you got here the variable exists either in the current scope or global
             self.PilaO.append(self.getVariable(id, self.scope)) 
         else:
@@ -331,14 +333,14 @@ class Interventions:
                 pointer += 1
      
      #print @ end for debug puprposes
-    def printGlobal(self): #utilityFunction
-        for quad in self.Quad:
-         print(quad, '\n')
-        for dic in self.variables: 
-            print('Dictionary: ', dic)
-            for var in self.variables[dic]: 
-                print("Variable: ", var)
-        print("***********************************************")
+    def printGlobal(self): #utility function, currently executes program at the end of it all
+        # for quad in self.Quad:
+        #  print(quad, '\n')
+        # for dic in self.variables: 
+        #     print('Dictionary: ', dic)
+        #     for var in self.variables[dic]: 
+        #         print("Variable: ", var)
+        # print("***********************************************")
         self.executeProgram()
 
         

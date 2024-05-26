@@ -15,7 +15,7 @@ body: '{' l_statement '}' ;
 statement: assign | condition | cycle | f_call | print ;
 l_statement: statement l_statement |  ;
 print: 'print' {inter.keyPoint_OperationPush('PRINT')} '('  print_prime l_print ')'  ';'{inter.keyPoint_CreateQuad(4)};
-print_prime: expression | STRING ;
+print_prime: expression | STRING {inter.keyPoint_1($STRING.text, $STRING.type)};
 l_print: ',' {inter.keyPoint_OperationPush(',')} print_prime {inter.keyPoint_CreateQuad(3)} l_print | ;
 cycle: 'do' {inter.whileKeyOne()} body 'while' '(' expression ')' ';'{inter.endWhile()};
 condition: 'if' '(' expression ')' {inter.createGoToF()} body condition_prime ';' {inter.if_Fill()};
