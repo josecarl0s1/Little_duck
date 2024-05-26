@@ -128,6 +128,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_programa; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterPrograma(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitPrograma(this);
+		}
 	}
 
 	public final ProgramaContext programa() throws RecognitionException {
@@ -182,6 +190,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_vars; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterVars(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitVars(this);
+		}
 	}
 
 	public final VarsContext vars() throws RecognitionException {
@@ -240,6 +256,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_vars_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterVars_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitVars_prime(this);
+		}
 	}
 
 	public final Vars_primeContext vars_prime() throws RecognitionException {
@@ -274,6 +298,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_vars_prime_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterVars_prime_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitVars_prime_prime(this);
+		}
 	}
 
 	public final Vars_prime_primeContext vars_prime_prime() throws RecognitionException {
@@ -327,6 +359,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_l_vars; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterL_vars(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitL_vars(this);
+		}
 	}
 
 	public final L_varsContext l_vars() throws RecognitionException {
@@ -379,6 +419,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_type; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterType(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitType(this);
+		}
 	}
 
 	public final TypeContext type() throws RecognitionException {
@@ -427,6 +475,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_funcs; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterFuncs(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitFuncs(this);
+		}
 	}
 
 	public final FuncsContext funcs() throws RecognitionException {
@@ -494,6 +550,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_funcs_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterFuncs_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitFuncs_prime(this);
+		}
 	}
 
 	public final Funcs_primeContext funcs_prime() throws RecognitionException {
@@ -545,6 +609,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_funcs_prime_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterFuncs_prime_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitFuncs_prime_prime(this);
+		}
 	}
 
 	public final Funcs_prime_primeContext funcs_prime_prime() throws RecognitionException {
@@ -592,6 +664,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_body; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterBody(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitBody(this);
+		}
 	}
 
 	public final BodyContext body() throws RecognitionException {
@@ -640,6 +720,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitStatement(this);
+		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -709,6 +797,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_l_statement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterL_statement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitL_statement(this);
+		}
 	}
 
 	public final L_statementContext l_statement() throws RecognitionException {
@@ -762,6 +858,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_print; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterPrint(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitPrint(this);
+		}
 	}
 
 	public final PrintContext print() throws RecognitionException {
@@ -805,6 +909,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_print_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterPrint_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitPrint_prime(this);
+		}
 	}
 
 	public final Print_primeContext print_prime() throws RecognitionException {
@@ -860,6 +972,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_l_print; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterL_print(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitL_print(this);
+		}
 	}
 
 	public final L_printContext l_print() throws RecognitionException {
@@ -912,6 +1032,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cycle; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterCycle(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitCycle(this);
+		}
 	}
 
 	public final CycleContext cycle() throws RecognitionException {
@@ -962,6 +1090,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_condition; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterCondition(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitCondition(this);
+		}
 	}
 
 	public final ConditionContext condition() throws RecognitionException {
@@ -1006,6 +1142,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_condition_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterCondition_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitCondition_prime(this);
+		}
 	}
 
 	public final Condition_primeContext condition_prime() throws RecognitionException {
@@ -1052,6 +1196,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cte; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterCte(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitCte(this);
+		}
 	}
 
 	public final CteContext cte() throws RecognitionException {
@@ -1096,6 +1248,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitExpression(this);
+		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -1133,6 +1293,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterExpression_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitExpression_prime(this);
+		}
 	}
 
 	public final Expression_primeContext expression_prime() throws RecognitionException {
@@ -1181,6 +1349,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_oper; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterOper(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitOper(this);
+		}
 	}
 
 	public final OperContext oper() throws RecognitionException {
@@ -1223,6 +1399,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_assign; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterAssign(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitAssign(this);
+		}
 	}
 
 	public final AssignContext assign() throws RecognitionException {
@@ -1264,6 +1448,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_exp; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterExp(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitExp(this);
+		}
 	}
 
 	public final ExpContext exp() throws RecognitionException {
@@ -1304,6 +1496,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_l_exp; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterL_exp(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitL_exp(this);
+		}
 	}
 
 	public final L_expContext l_exp() throws RecognitionException {
@@ -1356,6 +1556,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_pm; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterPm(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitPm(this);
+		}
 	}
 
 	public final PmContext pm() throws RecognitionException {
@@ -1400,6 +1608,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_termino; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterTermino(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitTermino(this);
+		}
 	}
 
 	public final TerminoContext termino() throws RecognitionException {
@@ -1440,6 +1656,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_l_termino; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterL_termino(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitL_termino(this);
+		}
 	}
 
 	public final L_terminoContext l_termino() throws RecognitionException {
@@ -1494,6 +1718,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_ad; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterAd(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitAd(this);
+		}
 	}
 
 	public final AdContext ad() throws RecognitionException {
@@ -1538,6 +1770,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_factor; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterFactor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitFactor(this);
+		}
 	}
 
 	public final FactorContext factor() throws RecognitionException {
@@ -1596,6 +1836,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_factor_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterFactor_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitFactor_prime(this);
+		}
 	}
 
 	public final Factor_primeContext factor_prime() throws RecognitionException {
@@ -1630,6 +1878,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_b_factor; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterB_factor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitB_factor(this);
+		}
 	}
 
 	public final B_factorContext b_factor() throws RecognitionException {
@@ -1679,6 +1935,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_ic; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterIc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitIc(this);
+		}
 	}
 
 	public final IcContext ic() throws RecognitionException {
@@ -1728,6 +1992,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_f_call; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterF_call(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitF_call(this);
+		}
 	}
 
 	public final F_callContext f_call() throws RecognitionException {
@@ -1771,6 +2043,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_f_call_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterF_call_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitF_call_prime(this);
+		}
 	}
 
 	public final F_call_primeContext f_call_prime() throws RecognitionException {
@@ -1823,6 +2103,14 @@ public class little_duckParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_l_f_call_prime; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).enterL_f_call_prime(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof little_duckListener ) ((little_duckListener)listener).exitL_f_call_prime(this);
+		}
 	}
 
 	public final L_f_call_primeContext l_f_call_prime() throws RecognitionException {
