@@ -1,35 +1,16 @@
 program test;
 
-var a, b, c, d, e, f, h, x, p, z: int;
-
-void ducky_func(n:int,m:float)[
-    var y:int;
-    {
-	n = 5 + 5;
-	m = n * 8;
-}];
+var factorial, i, n: int;
 
 main {
-    print(a);
-    a = b + c*(-5.2/d)*c;
-        if(a+b>d){
-        if(a<b){
-            a=b;
-            b=b+d;
-        } else {
-            c=a+b;
-        };
-    } else{
-		c=b+c;
-	};
-    d=b+a*c;
+    factorial = 1;
+    i = 1; 
+    n = 5;
     do{
-		x = p;
-	} while (
-		z != p
-	);
-    print(a+4, b+6, c*9);
-    ducky_func(a+b, c+b);
+		factorial = factorial * i;
+        i = i + 1;
+	} while (i< (n+1));
+    print("El factorial es: ", factorial)
 }
 
 end

@@ -316,9 +316,16 @@ class Interventions:
                 self.setVariable(result[2], self.getValue(l_operand))
                 pointer += 1
             elif operator == 'GotoF':
-                if not self.getValue(l_operand):
+                if not self.getValue(l_operand): #checks if condition evaluates as false
                     pointer = result
                 else:
+                    pointer += 1
+            elif operator == 'Goto':
+                pointer = result
+            elif operator == 'GOTO':
+                if self.getValue(l_operand):
+                    pointer = result
+                else: 
                     pointer += 1
             else:
                 pointer += 1
@@ -331,8 +338,6 @@ class Interventions:
             print('Dictionary: ', dic)
             for var in self.variables[dic]: 
                 print("Variable: ", var)
-        print(self.funcParams)
-        print(self.mainQuad)
         print("***********************************************")
         self.executeProgram()
 

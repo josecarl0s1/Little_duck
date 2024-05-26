@@ -7,6 +7,8 @@ main {
     b = 5;
     if(a > b){
         print(a);
+    } else {
+        a = b;
     };
     print(b,a);
 }
