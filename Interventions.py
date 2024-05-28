@@ -269,6 +269,7 @@ class Interventions:
         ',': lambda x, y: x+y,
         '<': lambda x, y: x<y,
         '>': lambda x, y: x>y,
+        '!=': lambda x, y: x != y,
     }
     #code for execution
     mainQuad = 0
@@ -287,7 +288,7 @@ class Interventions:
         address = var[2]
         return self.variables[address[0]][address[1]][2]
 
-    def executeProgram(self): # not equals 
+    def executeProgram(self): 
         pointer = self.mainQuad
         contProg = True
         while contProg:
@@ -302,17 +303,20 @@ class Interventions:
                 print(self.getValue(l_operand))
                 pointer += 1
             elif operator in ['+', '-', '*', '/', ',']:
-                cast = self.casting[result[1]]
-                self.setVariable(result[2], self.operations[operator](
-                    cast(self.getValue(l_operand)), 
+                cast = self.casting[result[1]] #gets type of result and casts this is the resulting type
+                self.setVariable(result[2], self.operations[operator]( #set variable takes in the address where the value will be saved and the value
+                    cast(self.getValue(l_operand)), #to get the resulting value we get cast each of the values from the operands and send them to operations where anonymous funcs are called
                     cast(self.getValue(r_operand))
                 ))
                 pointer += 1
-            elif operator in ['<', '>']:
+            elif operator in ['<', '>', '!=']:
                 self.setVariable(result[2], self.operations[operator](
                     self.getValue(l_operand), 
                     self.getValue(r_operand)
                 ))
+                pointer += 1
+            elif operator == '*-1':
+                self.setVariable(result[2], self.getValue(l_operand)*-1)
                 pointer += 1
             elif operator == '=':
                 self.setVariable(result[2], self.getValue(l_operand))
@@ -334,14 +338,14 @@ class Interventions:
      
      #print @ end for debug puprposes
     def printGlobal(self): #utility function, currently executes program at the end of it all
-        # for quad in self.Quad:
-        #  print(quad, '\n')
-        # for dic in self.variables: 
-        #     print('Dictionary: ', dic)
-        #     for var in self.variables[dic]: 
-        #         print("Variable: ", var)
-        # print("***********************************************")
-        self.executeProgram()
+         for quad in self.Quad:
+          print(quad, '\n')
+         for dic in self.variables: 
+             print('Dictionary: ', dic)
+             for var in self.variables[dic]: 
+                 print("Variable: ", var)
+         print("***********************************************")
+         self.executeProgram()
 
         
     

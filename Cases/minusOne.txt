@@ -1,0 +1,11 @@
+prgram minusOne;
+
+var a,b:int;
+
+main {
+    a = -5;
+    b = -a;
+    print(a);
+    print(b);
+}
+end

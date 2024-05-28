@@ -44,6 +44,6 @@ l_f_call_prime: ',' f_call_prime | ;
 NEWLINE: [\r\n\t]+ -> skip;
 WHITESPACE: ' ' -> skip;
 INT: [0-9]+;
-FLOAT: [-]?[0-9]+('.'[0-9]+)?;
+FLOAT: [0-9]+('.'[0-9]+)?;
 ID: [a-z]+[a-z_0-9A-Z]*;
 STRING: '"' ~["]* '"';
