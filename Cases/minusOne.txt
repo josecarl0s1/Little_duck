@@ -1,4 +1,4 @@
-prgram minusOne;
+program minusOne;
 
 var a,b:int;
 

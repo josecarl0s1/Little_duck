@@ -338,13 +338,13 @@ class Interventions:
      
      #print @ end for debug puprposes
     def printGlobal(self): #utility function, currently executes program at the end of it all
-         for quad in self.Quad:
-          print(quad, '\n')
-         for dic in self.variables: 
-             print('Dictionary: ', dic)
-             for var in self.variables[dic]: 
-                 print("Variable: ", var)
-         print("***********************************************")
+        #  for quad in self.Quad:
+        #   print(quad, '\n')
+        #  for dic in self.variables: 
+        #      print('Dictionary: ', dic)
+        #      for var in self.variables[dic]: 
+        #          print("Variable: ", var)
+        #  print("***********************************************")
          self.executeProgram()
 
         
