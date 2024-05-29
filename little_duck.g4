@@ -8,7 +8,7 @@ vars_prime: ID {inter.addVariable($ID.text, $ID.line)}vars_prime_prime ;
 vars_prime_prime: ',' vars_prime | ;
 l_vars: vars_prime ':' type ';' l_vars {inter.setTypes($type.text)}| ;
 type: 'int' | 'float' ;
-funcs: 'void' ID {inter.setVariableScope($ID.text)} '(' funcs_prime ')' '[' vars body ']' ';'{inter.setVariableScope('global')}{inter.endFunc()} funcs | ;
+funcs: 'void' ID {inter.funcStart()}{inter.setVariableScope($ID.text)} '(' funcs_prime ')' '[' vars body ']' ';'{inter.setVariableScope('global')}{inter.endFunc($ID.text)} funcs | ;
 funcs_prime: ID {inter.addVariable($ID.text, $ID.line)}':' type {inter.setTypes($type.text)} {inter.countParams()}funcs_prime_prime | ;
 funcs_prime_prime: ',' funcs_prime | ;
 body: '{' l_statement '}' ;
@@ -36,9 +36,9 @@ factor_prime: b_factor ic  {# removed | pm};
 b_factor: pm_const | ;
 pm_const: '+' | '-' {inter.setMinusOne()};
 ic: ID {inter.isNotDefined($ID.text, $ID.line)}{inter.keyPoint_1($ID.text)}| cte {inter.keyPoint_1($cte.text, $cte.stop.type)} {# This rule chesk if this is ID or Constant}; 
-f_call: ID '(' f_call_prime ')' ';' ;
+f_call: ID {inter.keyPoint_OperationPush('gosub')} '(' f_call_prime ')' ';'{inter.keyPoint_CreateQuad(4, $ID.text)} ;
 f_call_prime: expression l_f_call_prime | ;
-l_f_call_prime: ',' f_call_prime | ;
+l_f_call_prime: ',' {inter.keyPoint_OperationPush('param')} f_call_prime {inter.keyPoint_CreateQuad(4)}| ;
 
 
 NEWLINE: [\r\n\t]+ -> skip;

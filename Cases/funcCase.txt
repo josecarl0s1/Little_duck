@@ -1,0 +1,18 @@
+program funccy;
+
+var i,j,k,l:int;
+
+void ducky_func(x:int,y:float)[
+    var a,b:int;
+    {
+	 x = 5;
+     print(x);
+}];
+
+main{
+    i = 9;
+    j = 10;
+    ducky_func(i,j);
+    print(1);
+}
+end

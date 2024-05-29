@@ -138,17 +138,21 @@ class Interventions:
     def keyPoint_OperationPush(self, operator): #NOTE: in the diagram this function corresponds to both key point 2, 3 & 8
         self.POper.append(operator)
 
-    def keyPoint_CreateQuad(self, switch): #NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9, 3 corresponds to assignation
-        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=', ','], ['PRINT']] 
+    def keyPoint_CreateQuad(self, switch, funcId=None): #NOTE: 0 corresponds to key point 4, 1 corresponds to key point 5, 2 corresponds to key point 9, 3 corresponds to assigning ans print comma, 4 to print and param
+        opEval = [['+', '-'], ['*', '/'], ['<', '>', '!='], ['=', ','], ['PRINT', 'param', 'gosub']] 
         if not self.POper: #if stack is empty
             return 
         if self.POper[-1] in opEval[switch]:    
             
             #operator, l_operand, r_operand, result
-            r_operand = self.PilaO.pop()
             operator = self.POper.pop()
-            #special case for 'PRINT'
-            if operator == 'PRINT':
+            if operator == 'gosub': #special case for subbing to funcs
+                quadLine = [operator, funcId, None, None]
+                self.Quad.append(quadLine)
+                return
+            r_operand = self.PilaO.pop()
+            #special case for 'PRINT' and 'param'
+            if switch == 4:
                 quadLine = [operator, r_operand, None, None]
                 self.Quad.append(quadLine)
                 return
@@ -240,16 +244,25 @@ class Interventions:
     #Interventions for functions
 
     funcParams = {}
+    funcQuadIndex={}
+    funcPosition = []
     def countParams(self):
         if self.scope not in self.funcParams:
             self.funcParams[self.scope] = 1
         else:
             self.funcParams[self.scope]+=1
 
-    def endFunc(self):
+    def endFunc(self, funcName):
         quadLine = ["endfunc", None, None, None]
         self.Quad.append(quadLine)
+        self.funcQuadIndex[funcName] = self.funcPosition.pop()
     
+    def funcStart(self):
+        if len(self.Quad)-1 == -1:
+            value = 0
+        else:
+            value = len(self.Quad)-1
+        self.funcPosition.append(value)
     
     def endQuad(self):
         quadLine = ['EOF', None, None, None]
@@ -277,7 +290,7 @@ class Interventions:
         if len(self.Quad) == 0:
             self.mainQuad = 0
             return
-        self.mainQuad = len(self.Quad)-1
+        self.mainQuad = len(self.Quad)
     
     def setVariable(self, address, value):
         self.variables[address[0]][address[1]][2] = value
@@ -286,10 +299,30 @@ class Interventions:
         if var[0] == 'CTE':
             return var[-1]
         address = var[2]
-        return self.variables[address[0]][address[1]][2]
+        value = self.variables[address[0]][address[1]][2]
+        if value == None: 
+            raise Exception(f"Value of variable is null")
+        return value
+    
+    def paramValues(self, funcName, pointer):
+        numParams = self.funcParams[funcName]
+        for num in range(numParams):
+            quadLine = self.Quad[pointer-num]
+            if quadLine[0] != 'param':
+                raise Exception(f"Not enough parameters for {funcName}")
+            paramLine = self.variables[funcName][num]
+            #check if can be cast using translation dict and scube 
+            result_Type = self.sCube['='][self.translationDict[paramLine[1]]][self.translationDict[quadLine[1][1]]]
+            if result_Type == None:
+                raise Exception(f"The type {quadLine[1][1]} of variable {quadLine[1][0]} cannot be cast into the type of param {paramLine[0]} which is type {paramLine[1]} ")
+            paramVal = self.getValue(quadLine[1])
+            cast = self.casting(result_Type)
+            self.setVariable([funcName, num], cast(paramVal))
+            #cast and assign value 
 
     def executeProgram(self): 
         pointer = self.mainQuad
+        callStack = []
         contProg = True
         while contProg:
             quadLine = self.Quad[pointer]
@@ -333,19 +366,29 @@ class Interventions:
                     pointer = result
                 else: 
                     pointer += 1
+            if operator == 'gosub':
+                self.paramValues(l_operand, pointer)
+                callStack.append(pointer)
+                print(callStack)
+                pointer = self.funcQuadIndex[l_operand]
+            if operator == 'endfunc':
+                pointer = callStack.pop() + 1
             else:
                 pointer += 1
      
      #print @ end for debug puprposes
     def printGlobal(self): #utility function, currently executes program at the end of it all
-        #  for quad in self.Quad:
-        #   print(quad, '\n')
-        #  for dic in self.variables: 
-        #      print('Dictionary: ', dic)
-        #      for var in self.variables[dic]: 
-        #          print("Variable: ", var)
-        #  print("***********************************************")
-         self.executeProgram()
+          for quad in self.Quad:
+           print(quad, '\n')
+          for dic in self.variables: 
+              print('Dictionary: ', dic)
+              for var in self.variables[dic]: 
+                  print("Variable: ", var)
+          print('Func Params: ', self.funcParams)
+          print('Func Quad Index: ', self.funcQuadIndex)
+          print('Func Position: ', self.funcPosition)
+          print("***********************************************")
+          self.executeProgram()
 
         
     
