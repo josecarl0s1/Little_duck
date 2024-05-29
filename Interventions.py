@@ -306,8 +306,9 @@ class Interventions:
     
     def paramValues(self, funcName, pointer):
         numParams = self.funcParams[funcName]
+        pointer = pointer - numParams
         for num in range(numParams):
-            quadLine = self.Quad[pointer-num]
+            quadLine = self.Quad[pointer]
             if quadLine[0] != 'param':
                 raise Exception(f"Not enough parameters for {funcName}")
             paramLine = self.variables[funcName][num]
@@ -316,8 +317,9 @@ class Interventions:
             if result_Type == None:
                 raise Exception(f"The type {quadLine[1][1]} of variable {quadLine[1][0]} cannot be cast into the type of param {paramLine[0]} which is type {paramLine[1]} ")
             paramVal = self.getValue(quadLine[1])
-            cast = self.casting(result_Type)
+            cast = self.casting[result_Type]
             self.setVariable([funcName, num], cast(paramVal))
+            pointer+=1
             #cast and assign value 
 
     def executeProgram(self): 
@@ -369,7 +371,6 @@ class Interventions:
             elif operator == 'gosub':
                 self.paramValues(l_operand, pointer)
                 callStack.append(pointer)
-                print(callStack)
                 pointer = self.funcQuadIndex[l_operand]
             elif operator == 'endfunc':
                 pointer = callStack.pop() + 1
@@ -380,17 +381,18 @@ class Interventions:
      
      #print @ end for debug puprposes
     def printGlobal(self): #utility function, currently executes program at the end of it all
-          for quad in self.Quad:
-           print(quad, '\n')
-          for dic in self.variables: 
-              print('Dictionary: ', dic)
-              for var in self.variables[dic]: 
-                  print("Variable: ", var)
-          print('Func Params: ', self.funcParams)
-          print('Func Quad Index: ', self.funcQuadIndex)
-          print('Func Position: ', self.funcPosition)
-          print("***********************************************")
-          self.executeProgram()
+           for quad in self.Quad:
+            print(quad, '\n')
+        #   for dic in self.variables: 
+        #       print('Dictionary: ', dic)
+        #       for var in self.variables[dic]: 
+        #           print("Variable: ", var)
+        #   print('Func Params: ', self.funcParams)
+        #   print('Func Quad Index: ', self.funcQuadIndex)
+        #   print('Func Position: ', self.funcPosition)
+        #   print('PilO: ', self.PilaO)
+        #   print("***********************************************")
+           self.executeProgram()
 
         
     
