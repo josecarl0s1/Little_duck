@@ -366,15 +366,17 @@ class Interventions:
                     pointer = result
                 else: 
                     pointer += 1
-            if operator == 'gosub':
+            elif operator == 'gosub':
                 self.paramValues(l_operand, pointer)
                 callStack.append(pointer)
                 print(callStack)
                 pointer = self.funcQuadIndex[l_operand]
-            if operator == 'endfunc':
+            elif operator == 'endfunc':
                 pointer = callStack.pop() + 1
             else:
                 pointer += 1
+
+                
      
      #print @ end for debug puprposes
     def printGlobal(self): #utility function, currently executes program at the end of it all
