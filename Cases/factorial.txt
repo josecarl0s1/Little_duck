@@ -5,7 +5,7 @@ var factorial, i, n: int;
 main {
     factorial = 1;
     i = 1; 
-    n = 8;
+    n = 5;
     do{
 		factorial = factorial * i;
         i = i + 1;
