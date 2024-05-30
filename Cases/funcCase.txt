@@ -5,13 +5,26 @@ var i,j,k,l:int;
 void ducky_func(x:int,y:float)[
     var a,b:int;
     {
-     print(y);
+     a = 9;
+     b = 7;
+     print(y + a);
+}];
+
+void ducky_funcc(x:int,y:float)[
+    var a,b:int;
+    {
+     print(x);
+     a = 9;
+     b = 7;
+     print("Evil ", y + a+b);
 }];
 
 main{
     i = 9;
     j = 10;
     ducky_func(i, j+1);
+    ducky_func(i, j);
+    ducky_funcc(i, j);
     print(1);
 }
 end

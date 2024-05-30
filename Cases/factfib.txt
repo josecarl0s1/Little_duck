@@ -1,0 +1,41 @@
+program factfib;
+
+void fact(target:int)[
+    var i,n,factorial:int;
+    {
+    factorial = 1;
+    i = 1; 
+    n = target;
+    do{
+		factorial = factorial * i;
+        i = i + 1;
+	} while (i< (n+1));
+    print("El factorial de ", target, " es ", factorial);
+}];
+void fib(target:int)[
+    var i,n,first,second,next:int;
+    {
+    print(target, " digits of the fibonacci sequence are: ");
+    n = target;
+
+    first = 0;
+    second = 1;
+    i = 2;
+    print(first, " ");
+    print(second, " ");
+
+    do {
+        next = first + second;
+        print(next, " ");
+        first = second;
+        second = next;
+        i = i + 1;
+    } while(i < n);
+}];
+
+main{
+    fact(5);
+    fact(8);
+    fib(10);
+}
+end

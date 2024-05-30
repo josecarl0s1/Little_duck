@@ -255,7 +255,10 @@ class Interventions:
     def endFunc(self, funcName):
         quadLine = ["endfunc", None, None, None]
         self.Quad.append(quadLine)
-        self.funcQuadIndex[funcName] = self.funcPosition.pop()
+        if self.funcPosition[-1] == 0:
+            self.funcQuadIndex[funcName] = self.funcPosition.pop()
+        else: 
+            self.funcQuadIndex[funcName] = self.funcPosition.pop() +1
     
     def funcStart(self):
         if len(self.Quad)-1 == -1:
@@ -300,31 +303,39 @@ class Interventions:
             return var[-1]
         address = var[2]
         value = self.variables[address[0]][address[1]][2]
-        if value == None: 
+        if value == None:
+            
             raise Exception(f"Value of variable is null")
         return value
     
-    def paramValues(self, funcName, pointer):
+    def paramValues(self, funcName, pointer, paramStack): # raise Exception(f"Not enough parameters for {funcName}")
         numParams = self.funcParams[funcName]
-        pointer = pointer - numParams
+       
         for num in range(numParams):
+            pointer = paramStack.pop()
+        paramAddress = 0
+        
+        while numParams != 0 and pointer < len(self.Quad):
             quadLine = self.Quad[pointer]
-            if quadLine[0] != 'param':
-                raise Exception(f"Not enough parameters for {funcName}")
-            paramLine = self.variables[funcName][num]
-            #check if can be cast using translation dict and scube 
-            result_Type = self.sCube['='][self.translationDict[paramLine[1]]][self.translationDict[quadLine[1][1]]]
-            if result_Type == None:
-                raise Exception(f"The type {quadLine[1][1]} of variable {quadLine[1][0]} cannot be cast into the type of param {paramLine[0]} which is type {paramLine[1]} ")
-            paramVal = self.getValue(quadLine[1])
-            cast = self.casting[result_Type]
-            self.setVariable([funcName, num], cast(paramVal))
+            
+            if quadLine[0] == 'param': 
+                
+                paramLine = self.variables[funcName][paramAddress]
+                #check if can be cast using translation dict and scube 
+                result_Type = self.sCube['='][self.translationDict[paramLine[1]]][self.translationDict[quadLine[1][1]]]
+                if result_Type == None:
+                    raise Exception(f"The type {quadLine[1][1]} of variable {quadLine[1][0]} cannot be cast into the type of param {paramLine[0]} which is type {paramLine[1]} ")
+                paramVal = self.getValue(quadLine[1])
+                cast = self.casting[result_Type]
+                self.setVariable([funcName, paramAddress], cast(paramVal))
+                paramAddress += 1
+                numParams -=1 
             pointer+=1
-            #cast and assign value 
 
     def executeProgram(self): 
         pointer = self.mainQuad
         callStack = []
+        paramStack =[]
         contProg = True
         while contProg:
             quadLine = self.Quad[pointer]
@@ -368,8 +379,11 @@ class Interventions:
                     pointer = result
                 else: 
                     pointer += 1
+            elif operator== 'param':
+                paramStack.append(pointer)
+                pointer +=1
             elif operator == 'gosub':
-                self.paramValues(l_operand, pointer)
+                self.paramValues(l_operand, pointer, paramStack)
                 callStack.append(pointer)
                 pointer = self.funcQuadIndex[l_operand]
             elif operator == 'endfunc':
@@ -381,18 +395,18 @@ class Interventions:
      
      #print @ end for debug puprposes
     def printGlobal(self): #utility function, currently executes program at the end of it all
-           for quad in self.Quad:
-            print(quad, '\n')
-        #   for dic in self.variables: 
-        #       print('Dictionary: ', dic)
-        #       for var in self.variables[dic]: 
-        #           print("Variable: ", var)
-        #   print('Func Params: ', self.funcParams)
-        #   print('Func Quad Index: ', self.funcQuadIndex)
-        #   print('Func Position: ', self.funcPosition)
-        #   print('PilO: ', self.PilaO)
-        #   print("***********************************************")
-           self.executeProgram()
+        #    for quad in self.Quad:
+        #      print(quad, '\n')
+            # for dic in self.variables: 
+            #     print('Dictionary: ', dic)
+            #     for var in self.variables[dic]: 
+            #         print("Variable: ", var)
+        #    print('Func Params: ', self.funcParams)
+        #    print('Func Quad Index: ', self.funcQuadIndex)
+        #    print('Func Position: ', self.funcPosition)
+        #    print('PilO: ', self.PilaO)
+        #    print("***********************************************")
+            self.executeProgram()
 
         
     
