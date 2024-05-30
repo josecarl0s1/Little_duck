@@ -18,20 +18,13 @@ class Interventions:
         self.variables[self.scope].append([id, '', None]) # id, type, value
         self.variablesCount[self.scope] += 1
 
-
-    def addValueToVariable (self, id, value): #currently unused
-        for var in self.variables[self.scope]:
-            if(var[0] == id):
-                var[2] = value
-            
-
     def setTypes(self, type): #set type after declaration
         for num in range(len(self.variables[self.scope]) - self.variablesCount[self.scope], len(self.variables[self.scope])):
             self.variables[self.scope][num][1] = type
         self.variablesCount[self.scope] = 0
 
     
-    def setVariableScope(self, scope): #set scope variablles will be saved at
+    def setVariableScope(self, scope): #set scope variables will be saved at
         if scope not in self.variables:
             self.variables[scope] = []
             self.variablesCount[scope] = 0

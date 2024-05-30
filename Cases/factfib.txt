@@ -1,5 +1,5 @@
 program factfib;
-
+var values:int;
 void fact(target:int)[
     var i,n,factorial:int;
     {
@@ -15,7 +15,7 @@ void fact(target:int)[
 void fib(target:int)[
     var i,n,first,second,next:int;
     {
-    print(target, " digits of the fibonacci sequence are: ");
+    print("The first ", target, " digits of the fibonacci sequence are: ");
     n = target;
 
     first = 0;
@@ -33,9 +33,13 @@ void fib(target:int)[
     } while(i < n);
 }];
 
+
 main{
-    fact(5);
-    fact(8);
+    values = 5;
+    do {
+        fact(values);
+        values = values - 1;
+    }while(values > 0);
     fib(10);
 }
 end
